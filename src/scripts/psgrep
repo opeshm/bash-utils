@@ -1,0 +1,39 @@
+#!/bin/bash
+#########################################
+## Nombre:          psgrep
+## Description:     Search for a process
+## Version:         0.1
+## autor:           Mario Domínguez 
+#########################################
+
+if [ $# -lt 1 ]; then
+    echo "Se necesita un parámetro";
+    exit 1;
+fi
+
+param=$1;
+
+ps -de | grep $param;
+ids=`ps -de | grep $param | sed 's/^ *//g' | cut -f1 -d\ `;
+
+if [ "$ids" != "" ]; then
+    echo "Quieres matar algún proceso? [Y/n]";
+    read killP;
+    
+    killP=${killP^^};
+    
+    if [ "$killP" != "Y" ] && [ "$killP" != "" ]; then
+        exit 0;
+    fi;
+
+    echo "ID o IDs de los procesos que quiere matar (separados por espacios): "
+    read killID;
+
+    kill -9 $killID;
+
+else
+    echo "No se encuentran procesos activos";
+    exit 0;
+fi;
+
+exit 0;
