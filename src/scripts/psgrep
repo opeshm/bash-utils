@@ -7,8 +7,8 @@
 #########################################
 
 if [ $# -lt 1 ]; then
-    echo "Se necesita un parámetro";
-    exit 1;
+    e_error "Se necesita un parámetro";
+    exit 0;
 fi
 
 param=$1;
@@ -17,7 +17,7 @@ ps -de | grep $param;
 ids=`ps -de | grep $param | sed 's/^ *//g' | cut -f1 -d\ `;
 
 if [ "$ids" != "" ]; then
-    echo "Quieres matar algún proceso? [Y/n]";
+    e_warning "Quieres matar algún proceso? [Y/n]";
     read killP;
     
     killP=${killP^^};
@@ -26,14 +26,13 @@ if [ "$ids" != "" ]; then
         exit 0;
     fi;
 
-    echo "ID o IDs de los procesos que quiere matar (separados por espacios): "
+    e_warning "ID o IDs de los procesos que quiere matar (separados por espacios): "
     read killID;
 
     kill -9 $killID;
 
 else
-    echo "No se encuentran procesos activos";
-    exit 0;
+    e_error "No se encuentran procesos activos";
 fi;
 
 exit 0;
