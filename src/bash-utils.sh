@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # EXPORT VERSION VARIABLE
-export BASHUTILS_VERSION='0.1'
+export BASHUTILS_VERSION='0.2'
 
 # EXPORT PATH
 PATHSCRIPTS=`echo ${PATH} | grep -i bash-utils/scripts`

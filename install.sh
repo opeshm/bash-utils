@@ -18,24 +18,47 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# =============================
+# FUNCTIONS
+# =============================
+function ReadYesNo {
+    echo -en "${1} [Y/n]: "
+    read OPT_YN
+
+    if [ "${OPT_YN}" != "Y" ] && [ "${OPT_YN}" != "y" ] && [ "${OPT_YN}" != "" ]; then
+        return 1;
+    fi
+    
+    return 0;
+}
+
+
+# =============================
+# VARIABLES
+# =============================
+BACKUP_SUFIX=`date '+%Y%m%d%H%M%S'`
+BASHRC_SOURCE=`grep -i .bash-utils/bash-utils.sh ${HOME}/.bashrc`
+VIMRC_SOURCE=
+if [ -f ${HOME}/.vimrc ]; then
+    VIMRC_SOURCE=`grep -i .bash-utils/vimrc ${HOME}/.vimrc`
+fi
+
 
 # =============================
 # CLEAR TERMINAL
 # =============================
 clear
 
+
 # =============================
 # INITIAL CHECKS
 # =============================
 echo "CHECKING previous version... "
-if [ "$BASHUTILS_VERSION" != "" ]; then
-    echo -ne "Bash-utils previously installed.\n\n";
-    exit 0;
-fi
-
 if [ -d ~/.bash-utils ]; then
-    echo -en "Bash-utlils path exists.\n\n";
-    exit 0;
+    ReadYesNo "Bash-utlils path exists.\nOverride?"
+    if [ $? -ne 0 ]; then
+        exit 0;
+    fi
 fi 
 
 
@@ -43,6 +66,9 @@ fi
 # DIRECTORY
 # =============================
 echo "CREATING bash-utils directory... "
+if [ -d ~/.bash-utils ]; then
+    rm -rf ~/.bash-utils
+fi 
 mkdir -p ~/.bash-utils
 cp -r ./src/* ~/.bash-utils
 
@@ -51,27 +77,46 @@ cp -r ./src/* ~/.bash-utils
 # RC FILES
 # =============================
 # Add .bash-utils to .bashrc
-if [ -f ~/.bashrc ]; then
-    echo "BACKUP .bashrc"
-    cp ~/.bashrc ~/.bashrc.bak.`date '+%Y%m%d%H%M%S'`
-fi
 echo "ADDING bash-utils to your bashrc file"
-echo -ne "if [ -f ~/.bash-utils/bash-utils.sh ]; then\n    . ~/.bash-utils/bash-utils.sh\nfi\n" >> ~/.bashrc
+if [ "${BASHRC_SOURCE}" == "" ]; then
+
+    # backup bashrc
+    ReadYesNo "Backup ${HOME}/.bashrc?"
+
+    if [ $? -ne 0 ]; then
+        cp ${HOME}/.bashrc ${HOME}/.bashrc.bak.${BACKUP_SUFIX}
+        echo "BACKUP ${HOME}/.bashrc -> ${HOME}/.bashrc.bak.${BACKUP_SUFIX}"
+        exit 0;
+    fi
+
+    echo -ne "if [ -f ~/.bash-utils/bash-utils.sh ]; then\n    . ~/.bash-utils/bash-utils.sh\nfi\n" >> ${HOME}/.bashrc
+fi
+
 
 # Add vimrc.conf to .vimrc with "source [file]"
 echo "ADDING vimrc configuration to your vimrc"
-if [ -f ~/.vimrc ]; then
-    echo -ne "BACKUP .vimrc"
-    cp ~/.vimrc ~/.vimrc.bak.`date '+%Y%m%d%H%M%S'`
-    
-    VIMRC_SOURCE=`grep -i .bash-utils/vimrc ~/.vimrc`
+if [ -f ${HOME}/.vimrc ]; then
+
     if [ "${VIMRC_SOURCE}" == "" ]; then 
+
+        # backup vimrc
+        ReadYesNo "Backup ${HOME}/.vimrc?"
+
+        if [ $? -ne 0 ]; then
+            cp ${HOME}/.vimrc ${HOME}/.vimrc.bak.${BACKUP_SUFIX}
+            echo "BACKUP ${HOME}/.vimrc -> ${HOME}/.vimrc.bak.${BACKUP_SUFIX}"
+            exit 0;
+        fi
+        
         echo -ne "source ~/.bash-utils/vimrc\n" >> ~/.vimrc
     fi
 else 
-    echo -ne "source ~/.bash-utils/vimrc\n" >> ~/.vimrc
+    echo -ne "source ~/.bash-utils/vimrc\n" > ${HOME}/.vimrc
 fi
 
-echo -ne "\nLOG OUT TO APPLY CHANGES\n\n"
 
+# =============================
+# EXIT
+# =============================
+echo -ne "\nLOG OUT TO APPLY CHANGES.\n\n"
 exit 0;
