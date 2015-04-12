@@ -1,16 +1,16 @@
 #!/bin/bash
 
+# EXPORT VERSION VARIABLE
 export BASHUTILS_VERSION='0.1'
 
-# EXPORT VERSION VARIABLE
-if [ ~/.bash-utils -d ]; then
-    export PATH=${PATH}:~/.bash-utils
-else
-    exit 1;
+# EXPORT PATH
+PATHSCRIPTS=`echo ${PATH} | grep -i bash-utils/scripts`
+if [ "${PATHSCRIPTS}" == "" ]; then
+    export PATH=${PATH}:~/.bash-utils/scripts
 fi
 
 # ADDING ALIAS
-if [ ~/.bash-utils/alias.conf -f ]; then
-    . ~/.bash-utils/alias.conf
+if [ -f ~/.bash-utils/alias.sh ]; then
+    . ~/.bash-utils/alias.sh
 fi
 
