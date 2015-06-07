@@ -1,0 +1,10 @@
+#!/bin/bash
+
+key_press=''
+while [ "$key_press" != "q" ]; do
+    clear
+    sensors
+
+    echo "Q for quit."
+    read -d '' -sn1 -t1 key_press
+done
