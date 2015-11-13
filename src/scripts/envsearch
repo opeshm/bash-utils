@@ -1,0 +1,18 @@
+#!/bin/bash
+#########################################
+## Nombre:          envsearch  
+## Description:     Search into envirorment variables
+## Version:         0.1
+## autor:           Mario Domínguez 
+#########################################
+
+if [ $# -lt 1 ]; then
+    e_error "Se necesita un parámetro";
+    exit 0;
+fi
+
+param=$1;
+
+env | grep -i $param;
+
+exit 0;
