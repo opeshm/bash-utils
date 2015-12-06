@@ -18,7 +18,7 @@ fi
 
 # Create config file
 A2NEWSITE_CONFIG_FILE_CONTENT="<VirtualHost *:80>\n\
-\tServerName ${A2NEWSITE_SITE}\
+\tServerName ${A2NEWSITE_SITE}\n\
 \tServerAdmin webmaster@localhost\n\
 \tDocumentRoot ${A2NEWSITE_DOCUMENT_ROOT}\n\
 \t<Directory \"${A2NEWSITE_DOCUMENT_ROOT}\">\n\
@@ -32,9 +32,13 @@ A2NEWSITE_CONFIG_FILE_CONTENT="<VirtualHost *:80>\n\
 </VirtualHost>"
 
 touch "/etc/apache2/sites-available/100-${A2NEWSITE_SITE}.conf"
-echo ${A2NEWSITE_CONFIG_FILE_CONTENT} > "/etc/apache2/sites-available/100-${A2NEWSITE_SITE}.conf"
-a2ensite 100-${A2NEWSITE_SITE}
-service apache2 reload
+echo -ne ${A2NEWSITE_CONFIG_FILE_CONTENT} > "etc/apache2/sites-available/100-${A2NEWSITE_SITE}.conf"
+
+echo "Enabling site..."
+a2ensite 100-${A2NEWSITE_SITE} >> /dev/null
+
+echo "Restarting apache..."
+service apache2 restart >> /dev/null
 
 A2NEWSITE_LINES_IN_HOSTS=`grep ${A2NEWSITE_SITE} /etc/hosts | wc -l`
 if [ ${A2NEWSITE_LINES_IN_HOSTS} -eq 0 ]; then
