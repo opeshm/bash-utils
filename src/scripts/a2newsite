@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [ ${UID} -ne 0 ]; then
+    echo "You must be super user to execute this script"
+    exit 1
+fi
+
+# data
+A2NEWSITE_SITE=''
+A2NEWSITE_DOCUMENT_ROOT=''
+
+read -e -p "Site url: " A2NEWSITE_SITE
+
+read -e -p "Document root: " A2NEWSITE_DOCUMENT_ROOT
+
+# Create config file
+A2NEWSITE_CONFIG_FILE_CONTENT="<VirtualHost *:80>\n\
+\tServerName ${A2NEWSITE_SITE}\
+\tServerAdmin webmaster@localhost\n\
+\tDocumentRoot ${A2NEWSITE_DOCUMENT_ROOT}\n\
+\t<Directory \"${A2NEWSITE_DOCUMENT_ROOT}\">\n\
+\t\tOptions Indexes MultiViews FollowSymLinks\n\
+\t\tAllowOverride All\n\
+\t\tOrder allow,deny\n\
+\t\tAllow from all\n\
+\t\t</Directory>\n\
+\tErrorLog ${A2NEWSITE_DOCUMENT_ROOT}/error.log\n\
+\tCustomLog ${A2NEWSITE_DOCUMENT_ROOT}/access.log combined\n\
+</VirtualHost>"
+
+touch "/etc/apache2/sites-available/100-${A2NEWSITE_SITE}.conf"
+echo ${A2NEWSITE_CONFIG_FILE_CONTENT} > "/etc/apache2/sites-available/100-${A2NEWSITE_SITE}.conf"
+a2ensite 100-${A2NEWSITE_SITE}
+service apache2 reload
+
+echo "127.0.0.1 ${A2NEWSITE_SITE}" >> /etc/hosts
+
+echo "Thanks!"
+
