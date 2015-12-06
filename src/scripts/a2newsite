@@ -2,16 +2,19 @@
 
 if [ ${UID} -ne 0 ]; then
     echo "You must be super user to execute this script"
+    echo "Exit with errors"
     exit 1
 fi
 
 # data
-A2NEWSITE_SITE=''
-A2NEWSITE_DOCUMENT_ROOT=''
-
 read -e -p "Site url: " A2NEWSITE_SITE
-
 read -e -p "Document root: " A2NEWSITE_DOCUMENT_ROOT
+A2NEWSITE_CONF_FILE="100-${A2NEWSITE_SITE}.conf"
+if [ -f ${A2NEWSITE_CONF_FILE} ]; then
+    echo "File ${A2NEWSITE_CONF_FILE} already exists."
+    echo "Exit with errors"
+    exit 2
+fi
 
 # Create config file
 A2NEWSITE_CONFIG_FILE_CONTENT="<VirtualHost *:80>\n\
@@ -33,7 +36,10 @@ echo ${A2NEWSITE_CONFIG_FILE_CONTENT} > "/etc/apache2/sites-available/100-${A2NE
 a2ensite 100-${A2NEWSITE_SITE}
 service apache2 reload
 
-echo "127.0.0.1 ${A2NEWSITE_SITE}" >> /etc/hosts
+A2NEWSITE_LINES_IN_HOSTS=`grep ${A2NEWSITE_SITE} /etc/hosts | wc -l`
+if [ ${A2NEWSITE_LINES_IN_HOSTS} -eq 0 ]; then
+    echo "127.0.0.1 ${A2NEWSITE_SITE}" >> /etc/hosts
+fi
 
 echo "Thanks!"
 
