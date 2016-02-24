@@ -1,5 +1,4 @@
 [ ] Add installer script for all distros.
-[ ] Add temperature monitor.
 [ ] psgrep: autokill pid if there is only on.
 [ ] Add more function to functions.sh
 
