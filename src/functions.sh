@@ -16,35 +16,35 @@ export blue=$(tput setaf 38)
 # =============================
 # FUNCTIONS
 # =============================
-e_header() { 
+e_header() {
     echo "\n${bold}${purple}==========  ${@}  ==========${reset}\n"
 }
 
-e_arrow() { 
+e_arrow() {
     printf "➜ ${@}\n"
 }
 
-e_success() { 
+e_success() {
     printf "${green}✔ ${@}${reset}\n"
 }
 
-e_error() { 
+e_error() {
     printf "${red}✖ ${@}${reset}\n"
 }
 
-e_warning() { 
+e_warning() {
     printf "${tan}➜ ${@}${reset}\n"
 }
 
-e_underline() { 
+e_underline() {
     printf "${underline}${bold}${@}${reset}\n"
 }
 
-e_bold() { 
+e_bold() {
     printf "${bold}${@}${reset}\n"
 }
 
-e_note() { 
+e_note() {
     printf "${underline}${bold}${blue}Note:${reset}  ${blue}${@}${reset}\n"
 }
 
@@ -60,3 +60,11 @@ export -f e_warning
 export -f e_underline
 export -f e_bold
 export -f e_note
+
+# ==============================
+# LOAD FUNCTION FILES
+# ==============================
+for fn_file in ~/.bash-utils/scripts/fn/*
+do
+  . "$fn_file"
+done
