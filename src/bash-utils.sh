@@ -3,7 +3,7 @@
 # =============================
 # EXPORT VERSION VARIABLE
 # =============================
-export BASHUTILS_VERSION='0.3'
+export BASHUTILS_VERSION='0.3.1'
 
 # =============================
 # ADDING COMPLETION
