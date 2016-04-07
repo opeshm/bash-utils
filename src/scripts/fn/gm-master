@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function gm-master() {
+
+  GMMASTER_PREVIOUS_BRANCH=`git branch | grep \* | cut -f2 -d\ `
+
+  git pull
+  git checkout master
+  git pull
+  git checkout ${GMMASTER_PREVIOUS_BRANCH}
+  git merge master
+
+}
+
+export -f gm-master

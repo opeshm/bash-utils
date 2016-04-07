@@ -27,12 +27,12 @@ A2NEWSITE_CONFIG_FILE_CONTENT="<VirtualHost *:80>\n\
 \t\tOrder allow,deny\n\
 \t\tAllow from all\n\
 \t\t</Directory>\n\
-\tErrorLog /var/log/${A2NEWSITE_DOCUMENT_ROOT}/error.log\n\
-\tCustomLog /var/log/${A2NEWSITE_DOCUMENT_ROOT}/access.log combined\n\
+\tErrorLog /var/log/${A2NEWSITE_SITE}/error.log\n\
+\tCustomLog /var/log/${A2NEWSITE_SITE}/access.log combined\n\
 </VirtualHost>"
 
 touch "/etc/apache2/sites-available/100-${A2NEWSITE_SITE}.conf"
-mkdir /var/log/${A2NEWSITE_SITE}/
+mkdir -p /var/log/${A2NEWSITE_SITE}/
 echo -ne ${A2NEWSITE_CONFIG_FILE_CONTENT} > "/etc/apache2/sites-available/100-${A2NEWSITE_SITE}.conf"
 
 echo "Enabling site..."
