@@ -1,0 +1,35 @@
+#!/bin/bash
+
+key_press=''
+while [ "$key_press" != "q" ]; do
+    	clear
+	echo ""
+	echo " ____      _    __  __ "
+	echo "|  _ \    / \  |  \/  |"
+	echo "| |_) |  / _ \ | |\/| |"
+	echo "|  _ <  / ___ \| |  | |"
+	echo "|_| \_\/_/   \_\_|  |_|"
+	echo ""
+	free
+
+
+	echo "____ ___ ____  _  __"
+	echo "|  _ \\_ _/ ___|| |/ /"
+	echo "| | | | |\\___ \\| ' / "
+	echo "| |_| | | ___) | . \\ "
+	echo "|____/___|____/|_|\\_\\"
+	echo ""
+	df
+
+
+	echo "____  ____        "
+	echo "|  _ \\/ ___|   _   "
+	echo "| |_) \\___ \\ _| |_ "
+	echo "|  __/ ___) |_   _|"
+	echo "|_|   |____/  |_|  "
+	echo ""
+	ps u
+
+	echo -e "\n\nQ for quit."
+    	read -d '' -sn1 -t1 key_press
+done
