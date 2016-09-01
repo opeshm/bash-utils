@@ -1,0 +1,12 @@
+#!/bin/bash
+#########################################
+## Nombre:          git-cap
+## Description:     git checkout and push
+## Version:         0.1
+## autor:           Mario Domínguez
+#########################################
+
+GIT_CAP_BRANCH=${1}
+
+git checkout -b ${GIT_CAP_BRANCH}
+git push -u origin ${GIT_CAP_BRANCH}
