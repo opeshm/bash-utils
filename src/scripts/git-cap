@@ -8,5 +8,7 @@
 
 GIT_CAP_BRANCH=${1}
 
+git checkout master
+git pull
 git checkout -b ${GIT_CAP_BRANCH}
 git push -u origin ${GIT_CAP_BRANCH}
