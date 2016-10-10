@@ -1,0 +1,15 @@
+#!/bin/bash
+#########################################
+## Nombre:          git-mmaster
+## Description:     git checkout master and merge to actual branch
+## Version:         0.1
+## autor:           Mario Domínguez
+#########################################
+
+GMMASTER_PREVIOUS_BRANCH=`git branch | grep \* | cut -f2 -d\ `
+
+git pull
+git checkout master
+git pull
+git checkout ${GMMASTER_PREVIOUS_BRANCH}
+git merge master
