@@ -61,11 +61,3 @@ export -f e_warning
 export -f e_underline
 export -f e_bold
 export -f e_note
-
-# ==============================
-# LOAD FUNCTION FILES
-# ==============================
-for fn_file in ~/.bash-utils/scripts/fn/*
-do
-  . "$fn_file"
-done
