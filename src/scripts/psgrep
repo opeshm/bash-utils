@@ -20,7 +20,7 @@ if [ "$ids" != "" ]; then
     e_warning "Quieres matar algún proceso? [Y/n]";
     read killP;
     
-    killP=${killP^^};
+    killP=${killP};
     
     if [ "$killP" != "Y" ] && [ "$killP" != "" ]; then
         exit 0;
