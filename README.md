@@ -7,3 +7,9 @@ Some utils for bash.
 $ git clone https://github.com/opeshm/bash-utils.git ~/.bash-utils
 $ ~/.bash-utils/install.sh
 ```
+
+## Update
+```
+$ cd ~/.bash-utils
+$ git pull
+```
