@@ -4,6 +4,7 @@
 # EXPORT VERSION VARIABLE
 # =============================
 export BASHUTILS_VERSION='0.3.1'
+export BASHUTILS_DIR="${HOME}/.bash-utils"
 
 # =============================
 # ADDING COMPLETION
