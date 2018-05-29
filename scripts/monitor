@@ -10,8 +10,7 @@ while [ "$key_press" != "q" ]; do
 	echo "|  _ <  / ___ \| |  | |"
 	echo "|_| \_\/_/   \_\_|  |_|"
 	echo ""
-	free
-
+	free -h
 
 	echo "____ ___ ____  _  __"
 	echo "|  _ \\_ _/ ___|| |/ /"
@@ -19,8 +18,7 @@ while [ "$key_press" != "q" ]; do
 	echo "| |_| | | ___) | . \\ "
 	echo "|____/___|____/|_|\\_\\"
 	echo ""
-	df
-
+    df -hlT -t ext4 -t vfat
 
 	echo "____  ____        "
 	echo "|  _ \\/ ___|   _   "
@@ -28,8 +26,8 @@ while [ "$key_press" != "q" ]; do
 	echo "|  __/ ___) |_   _|"
 	echo "|_|   |____/  |_|  "
 	echo ""
-	ps u
+	ps u -H
 
 	echo -e "\n\nQ for quit."
-    	read -d '' -sn1 -t1 key_press
+   	read -d '' -sn1 -t1 key_press
 done
