@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function tf-init() {
+  terraform init
+}
+
 function tf-plan() {
   terraform plan
 }
