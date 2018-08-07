@@ -12,8 +12,9 @@ function git-branch-clean() {
 
 function git-cap() {
   GIT_CAP_BRANCH=${1}
+  GIT_HEAD_BRANCH=`git branch -a  | grep origin/HEAD | cut --delimiter=\> -f2 | cut --delimiter=/ -f2 `
 
-  git checkout master
+  git checkout ${GIT_HEAD_BRANCH}
   git pull
   git branch ${GIT_CAP_BRANCH}
   git checkout ${GIT_CAP_BRANCH}
