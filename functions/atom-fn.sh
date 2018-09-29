@@ -6,18 +6,7 @@ function atom-full-install () {
 }
 
 function atom-install() {
-  ATOM_DEB_URL="https://atom-installer.github.com/v1.25.0/atom-amd64.deb?s=1521055093&amp;ext=.deb"
-  ATOM_DEB_PATH="${HOME}/tmp/atom-amd64.deb"
-
-  mkdir -p ${HOME}/tmp
-  wget -O ${ATOM_DEB_PATH} $ATOM_DEB_URL
-
-  if [ -f ${ATOM_DEB_PATH} ]; then
-    sudo apt install ${ATOM_DEB_PATH}
-    rm ${ATOM_DEB_PATH}
-  else
-    echo "No se pudo descargar el paquete"
-  fi
+  sudo snap install atom --classic
 }
 
 function atom-install-packages() {
