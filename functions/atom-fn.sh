@@ -6,7 +6,7 @@ function atom-full-install () {
 }
 
 function atom-install() {
-  snap install atom --classic
+  sudo snap install atom --classic
 }
 
 function atom-install-packages() {
