@@ -2,7 +2,10 @@
 
 function git-branch-clean() {
 
-  git checkout master
+  GIT_CAP_BRANCH=${1}
+  GIT_HEAD_BRANCH=`git branch -a  | grep origin/HEAD | cut --delimiter=\> -f2 | cut --delimiter=/ -f2 `
+
+  git checkout ${GIT_HEAD_BRANCH}
 
   for b in $(git branch | grep -v ^\*); do
     git branch -D "$b"
@@ -27,3 +30,9 @@ function install-git-kraken () {
   wget -P /tmp/gitkraken-amd64.deb "https://release.gitkraken.com/linux/gitkraken-amd64.deb"
   sudo apt install -y /tmp/gitkraken-amd64.deb/gitkraken-amd64.deb
 }
+
+# Alias
+alias g-commit='git commit -m '
+alias g-status='git status '
+alias g-add='git add '
+alias g-diff='git diff '
