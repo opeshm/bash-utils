@@ -39,5 +39,4 @@ if [ -f ~/.bash-utils/functions.sh ]; then
     . ~/.bash-utils/functions.sh
 fi
 
-
-
+export PATH=${PATH}:~/.bash-utils/custom-scripts
