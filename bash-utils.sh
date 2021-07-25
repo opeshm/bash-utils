@@ -7,7 +7,7 @@ export BASHUTILS_DIR="${HOME}/.bash-utils"
 
 function bu-reload () {
 
-  source ~/.bashr
+  source ~/.bashrc
 }
 
 function bu-create-utils-project () {
