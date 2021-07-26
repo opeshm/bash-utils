@@ -23,11 +23,12 @@ function bu-create-utils-project () {
 }
 
 function bu-add-utils-project () {
-
-  git clone ${1} ${BASHUTILS_DIR}/utils/
+  cd ${BASHUTILS_DIR}/utils/
+  git clone ${1} 
+  cd -
 }
 
-for UTIL_DIR in ./utils/**; do
+for UTIL_DIR in ${BASHUTILS_DIR}/utils/**; do
 
   if [ -d ${UTIL_DIR}/scripts ]; then
     export PATH=${PATH}:$(realpath ${UTIL_DIR}/scripts/)
