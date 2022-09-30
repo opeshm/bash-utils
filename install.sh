@@ -36,8 +36,9 @@ function ReadYesNo {
 # =============================
 # VARIABLES
 # =============================
+BASH_UTILS_INSTALL_PATH="${PWD}/$(dirname $BASH_SOURCE)"
 BACKUP_SUFIX=`date '+%Y%m%d%H%M%S'`
-BASHRC_SOURCE=`grep -i .bash-utils/bash-utils.sh ${HOME}/.bashrc`
+BASHRC_SOURCE=`grep -i BASH_UTILS ${HOME}/.bashrc`
 
 # =============================
 # RC FILES
@@ -55,7 +56,8 @@ if [ "${BASHRC_SOURCE}" == "" ]; then
         exit 0;
     fi
 
-    echo -ne "\nsource ~/.bash-utils/bash-utils.sh\n" >> ${HOME}/.bashrc
+    echo -ne "\nexport BASH_UTILS=${BASH_UTILS_INSTALL_PATH}\n" >> ${HOME}/.bashrc
+    echo -ne "\nsource \$BASH_UTILS/bash-utils.sh\n" >> ${HOME}/.bashrc
 fi
 
 source ${HOME}/.bashrc
