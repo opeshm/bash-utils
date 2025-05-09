@@ -2,6 +2,8 @@
 
 This project allows you to configure custom functions and script for bash.
 
+[Bash Utils](https://gitlab.com/opeshm/bash-utils.git)
+
 # Install
 
 Just clone this repository in your home directory and execute the install script:
